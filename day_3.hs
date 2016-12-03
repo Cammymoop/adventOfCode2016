@@ -1,5 +1,6 @@
 import System.IO
 
+-- utility functions
 splitOn :: (Char -> Bool) -> String -> [String]
 splitOn predicate s = case dropWhile predicate s of
                       "" -> []
@@ -14,6 +15,8 @@ readInt = read
 processInput = map $ (map readInt) . splitOnSpace
 
 greatest = foldr max 0
+
+-- Check for/count valid traingles
 
 isValidTriangle sides = ((<) . (*2) . greatest) sides $ sum sides 
 
