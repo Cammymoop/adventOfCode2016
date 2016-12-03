@@ -24,13 +24,10 @@ countValidTriangles = foldr (\x acc -> if isValidTriangle x then acc + 1 else ac
 
 -- process input mark II
 
-flipMatrix :: [[a]] -> [[a]]
 flipMatrix (a:b:c:_) = zipWith3 (\x y z -> x:y:[z]) a b c
 
 fixInput [] = []
-fixInput lines = (++) (flipMatrix $ take 3 $ lines) $ fixInput $ drop 3 $ lines
-
-processInputMarkII = fixInput . processInput
+fixInput xs = (++) (flipMatrix $ take 3 $ xs) $ fixInput $ drop 3 $ xs
 
 main :: IO ()
 main = do
@@ -38,4 +35,4 @@ main = do
   rawInput <- hGetContents inFile
   print $ countValidTriangles $ processInput $ lines rawInput
   print "second count:"
-  print $ countValidTriangles $ processInputMarkII $ lines rawInput
+  print $ countValidTriangles $ fixInput . processInput $ lines rawInput
