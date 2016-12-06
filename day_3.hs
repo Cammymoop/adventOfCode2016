@@ -1,24 +1,14 @@
 import System.IO
 
 -- utility functions
-splitOn :: (Char -> Bool) -> String -> [String]
-splitOn predicate s = case dropWhile predicate s of
-                      "" -> []
-                      s' -> w : splitOn predicate s''
-                            where (w, s'') = break predicate s'
-
-splitOnSpace = splitOn (== ' ')
-
 readInt :: String -> Int
 readInt = read
 
-processInput = map $ (map readInt) . splitOnSpace
-
-greatest = foldr max 0
+processInput = map $ (map readInt) . words
 
 -- Check for/count valid traingles
 
-isValidTriangle sides = ((<) . (*2) . greatest) sides $ sum sides 
+isValidTriangle sides = ((<) . (*2) . maximum) sides $ sum sides 
 
 countValidTriangles = foldr (\x acc -> if isValidTriangle x then acc + 1 else acc) 0
 
